@@ -1,0 +1,1215 @@
+/* CATPPUCCIN SKIN
+ * A KDE Plasma / Breeze inspired desktop skin for Neofeed.
+ *
+ * Layout and interaction language follow the Breeze skin, recolored with the
+ * Catppuccin Latte (light) and Macchiato (dark) palettes.
+ *
+ * Catppuccin KDE color schemes and Aurorae window decorations:
+ * https://github.com/catppuccin/kde
+ * SPDX-FileCopyrightText: Catppuccin contributors
+ * SPDX-License-Identifier: MIT
+ *
+ * Breeze visual metrics originate from KDE's Plasma "union" Breeze style:
+ * https://invent.kde.org/plasma/union/-/tree/master/src/input/css/styles/breeze
+ * SPDX-FileCopyrightText: 2025 Arjen Hiemstra <ahiemstra@heimr.nl>
+ * SPDX-License-Identifier: BSD-2-Clause
+ *
+ * Accent: Flamingo, matching the Catppuccin KDE previews.
+ * Links use Mauve for readable contrast on Catppuccin's pastel backgrounds.
+ */
+
+/* --------------------------------------------------------------------------
+ * Design tokens
+ * ------------------------------------------------------------------------ */
+
+:root {
+    color-scheme: light;
+
+    /* Catppuccin / Breeze metrics */
+    --ctp-radius: 8px;
+    --ctp-space-1: 2px;
+    --ctp-space-2: 4px;
+    --ctp-space-3: 6px;
+    --ctp-space-4: 8px;
+    --ctp-titlebar-height: 34px;
+    --ctp-panel-height: 46px;
+    --ctp-window-shadow: 0 4px 22px rgba(76, 79, 105, .18);
+    --ctp-window-shadow-hover: 0 6px 28px rgba(76, 79, 105, .24);
+    --ctp-button-shadow: 0 1px 0 rgba(76, 79, 105, .12);
+    --ctp-focus-ring: rgba(221, 120, 120, .55);
+    --ctp-transition: 140ms ease;
+
+    /* Catppuccin Latte */
+    --ctp-base: #eff1f5;
+    --ctp-mantle: #e6e9ef;
+    --ctp-crust: #dce0e8;
+    --ctp-surface0: #ccd0da;
+    --ctp-surface1: #bcc0cc;
+    --ctp-surface2: #acb0be;
+    --ctp-overlay0: #9ca0b0;
+    --ctp-overlay1: #8c8fa1;
+    --ctp-overlay2: #7c7f93;
+    --ctp-text: #4c4f69;
+    --ctp-subtext1: #5c5f77;
+    --ctp-subtext0: #6c6f85;
+    --ctp-rosewater: #dc8a78;
+    --ctp-flamingo: #dd7878;
+    --ctp-pink: #ea76cb;
+    --ctp-mauve: #8839ef;
+    --ctp-red: #d20f39;
+    --ctp-maroon: #e64553;
+    --ctp-peach: #fe640b;
+    --ctp-yellow: #df8e1d;
+    --ctp-green: #40a02b;
+    --ctp-teal: #179299;
+    --ctp-sky: #04a5e5;
+    --ctp-sapphire: #209fb5;
+    --ctp-blue: #1e66f5;
+    --ctp-lavender: #7287fd;
+
+    /* Catppuccin KDE Latte Flamingo color-scheme mapping */
+    --ctp-window: var(--ctp-mantle);
+    --ctp-window-alt: var(--ctp-surface0);
+    --ctp-view: var(--ctp-base);
+    --ctp-view-alt: var(--ctp-mantle);
+    --ctp-titlebar: var(--ctp-mantle);
+    --ctp-titlebar-text: var(--ctp-subtext1);
+    --ctp-text-inactive: var(--ctp-subtext0);
+    --ctp-accent: var(--ctp-flamingo);
+    --ctp-accent-strong: var(--ctp-flamingo);
+    --ctp-accent-text: #11111b;
+    --ctp-link: var(--ctp-mauve);
+    --ctp-link-hover: var(--ctp-mauve);
+    --ctp-border: var(--ctp-surface0);
+    --ctp-border-soft: rgba(76, 79, 105, .16);
+    --ctp-button: var(--ctp-surface0);
+    --ctp-button-shadow-color: rgba(76, 79, 105, .12);
+    --ctp-button-pressed: rgba(221, 120, 120, .24);
+    --ctp-control: var(--ctp-subtext1);
+    --ctp-negative: var(--ctp-red);
+    --ctp-positive: var(--ctp-green);
+    --ctp-neutral: var(--ctp-yellow);
+
+    /* Plasma panel */
+    --ctp-panel-bg: rgba(230, 233, 239, .9);
+    --ctp-panel-text: var(--ctp-text);
+    --ctp-panel-border: rgba(76, 79, 105, .18);
+    --ctp-panel-hover: rgba(221, 120, 120, .2);
+
+    /* Badges and accents */
+    --ctp-tag-bg: rgba(221, 120, 120, .16);
+    --ctp-tag-border: rgba(221, 120, 120, .55);
+    --ctp-tag-text: var(--ctp-text);
+    --ctp-tag-hover-bg: var(--ctp-flamingo);
+    --ctp-tag-hover-text: var(--ctp-accent-text);
+    --ctp-quote-bg: rgba(221, 120, 120, .1);
+
+    /* Scrollbars */
+    --ctp-scroll-thumb: var(--ctp-surface2);
+
+    /* Catppuccin Latte desktop wallpaper */
+    --ctp-wallpaper-base: #d7def2;
+    --ctp-wallpaper:
+        radial-gradient(80% 65% at 12% 8%, rgba(254, 100, 11, .24), transparent 62%),
+        radial-gradient(75% 60% at 88% 12%, rgba(114, 135, 253, .28), transparent 65%),
+        radial-gradient(110% 85% at 50% 100%, rgba(234, 118, 203, .2), transparent 70%),
+        linear-gradient(165deg, #d7def2 0%, #e7d9f2 32%, #f3d9e8 60%, #ffd9c4 82%, #ffeadf 100%);
+
+    /* Catppuccin Latte Modern window buttons: minimize, maximize, close */
+    --ctp-window-controls: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2068%2018%22%3E%3Ccircle%20cx=%229%22%20cy=%229%22%20r=%228.5%22%20fill=%22%23df8e1d%22/%3E%3Cpath%20d=%22M5%209h8%22%20stroke=%22%23f9e9d2%22%20stroke-width=%221.6%22%20stroke-linecap=%22round%22/%3E%3Ccircle%20cx=%2234%22%20cy=%229%22%20r=%228.5%22%20fill=%22%2340a02b%22/%3E%3Cpath%20d=%22M34%205v8M30%209h8%22%20stroke=%22%23dcf4d7%22%20stroke-width=%221.6%22%20stroke-linecap=%22round%22/%3E%3Ccircle%20cx=%2259%22%20cy=%229%22%20r=%228.5%22%20fill=%22%23d20f39%22/%3E%3Cpath%20d=%22M55.5%205.5l7%207M62.5%205.5l-7%207%22%20stroke=%22%23fccfd9%22%20stroke-width=%221.6%22%20stroke-linecap=%22round%22/%3E%3C/svg%3E");
+
+    /* Neofeed variables */
+    --accent: var(--ctp-accent);
+    --color-primary: var(--ctp-text);
+    --color-secondary: var(--ctp-text-inactive);
+    --color-bg: var(--ctp-view);
+    --item-bg: var(--ctp-view);
+    --border-radius: var(--ctp-radius);
+    --shadow-shape: 0 4px 22px;
+    --color-shadow: rgba(76, 79, 105, .18);
+    --scrollbar-bg: transparent;
+    --scrollbar-thumb: var(--ctp-scroll-thumb);
+    --scrollbar-border: var(--ctp-view);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+
+        /* Catppuccin Macchiato */
+        --ctp-base: #24273a;
+        --ctp-mantle: #1e2030;
+        --ctp-crust: #181926;
+        --ctp-surface0: #363a4f;
+        --ctp-surface1: #494d64;
+        --ctp-surface2: #5b6078;
+        --ctp-overlay0: #6e738d;
+        --ctp-overlay1: #8087a2;
+        --ctp-overlay2: #939ab7;
+        --ctp-text: #cad3f5;
+        --ctp-subtext1: #b8c0e0;
+        --ctp-subtext0: #a5adcb;
+        --ctp-rosewater: #f4dbd6;
+        --ctp-flamingo: #f0c6c6;
+        --ctp-pink: #f5bde6;
+        --ctp-mauve: #c6a0f6;
+        --ctp-red: #ed8796;
+        --ctp-maroon: #ee99a0;
+        --ctp-peach: #f5a97f;
+        --ctp-yellow: #eed49f;
+        --ctp-green: #a6da95;
+        --ctp-teal: #8bd5ca;
+        --ctp-sky: #91d7e3;
+        --ctp-sapphire: #7dc4e4;
+        --ctp-blue: #8aadf4;
+        --ctp-lavender: #b7bdf8;
+
+        /* Catppuccin KDE Macchiato Flamingo color-scheme mapping */
+        --ctp-window: var(--ctp-mantle);
+        --ctp-window-alt: var(--ctp-surface0);
+        --ctp-view: var(--ctp-base);
+        --ctp-view-alt: var(--ctp-mantle);
+        --ctp-titlebar: var(--ctp-mantle);
+        --ctp-titlebar-text: var(--ctp-subtext1);
+        --ctp-text-inactive: var(--ctp-subtext0);
+        --ctp-accent: var(--ctp-flamingo);
+        --ctp-accent-strong: var(--ctp-flamingo);
+        --ctp-accent-text: #11111b;
+        --ctp-link: var(--ctp-mauve);
+        --ctp-link-hover: var(--ctp-mauve);
+        --ctp-border: var(--ctp-surface1);
+        --ctp-border-soft: rgba(202, 211, 245, .14);
+        --ctp-button: var(--ctp-surface0);
+        --ctp-button-shadow-color: rgba(0, 0, 0, .35);
+        --ctp-button-pressed: rgba(240, 198, 198, .24);
+        --ctp-control: var(--ctp-subtext1);
+        --ctp-negative: var(--ctp-red);
+        --ctp-positive: var(--ctp-green);
+        --ctp-neutral: var(--ctp-yellow);
+
+        /* Plasma panel */
+        --ctp-panel-bg: rgba(30, 32, 48, .9);
+        --ctp-panel-text: var(--ctp-text);
+        --ctp-panel-border: rgba(202, 211, 245, .16);
+        --ctp-panel-hover: rgba(240, 198, 198, .2);
+
+        /* Badges and accents */
+        --ctp-tag-bg: rgba(240, 198, 198, .14);
+        --ctp-tag-border: rgba(240, 198, 198, .5);
+        --ctp-tag-text: var(--ctp-text);
+        --ctp-tag-hover-bg: var(--ctp-flamingo);
+        --ctp-tag-hover-text: var(--ctp-accent-text);
+        --ctp-quote-bg: rgba(240, 198, 198, .1);
+
+        --ctp-scroll-thumb: var(--ctp-surface2);
+
+        --ctp-window-shadow: 0 6px 28px rgba(0, 0, 0, .45);
+        --ctp-window-shadow-hover: 0 8px 32px rgba(0, 0, 0, .55);
+        --ctp-focus-ring: rgba(240, 198, 198, .55);
+
+        /* Catppuccin Macchiato desktop wallpaper */
+        --ctp-wallpaper-base: #181926;
+        --ctp-wallpaper:
+            radial-gradient(85% 70% at 12% 5%, rgba(198, 160, 246, .32), transparent 62%),
+            radial-gradient(75% 60% at 88% 10%, rgba(138, 173, 244, .24), transparent 65%),
+            radial-gradient(110% 85% at 50% 100%, rgba(244, 219, 214, .1), transparent 70%),
+            linear-gradient(165deg, #181926 0%, #1e2030 30%, #2a2140 58%, #3d2b55 80%, #5a3b74 100%);
+
+        /* Catppuccin Macchiato Modern window buttons */
+        --ctp-window-controls: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2068%2018%22%3E%3Ccircle%20cx=%229%22%20cy=%229%22%20r=%228.5%22%20fill=%22%23f5a97f%22/%3E%3Cpath%20d=%22M5%209h8%22%20stroke=%22%23bd4d0f%22%20stroke-width=%221.6%22%20stroke-linecap=%22round%22/%3E%3Ccircle%20cx=%2234%22%20cy=%229%22%20r=%228.5%22%20fill=%22%23a6da95%22/%3E%3Cpath%20d=%22M34%205v8M30%209h8%22%20stroke=%22%234d9735%22%20stroke-width=%221.6%22%20stroke-linecap=%22round%22/%3E%3Ccircle%20cx=%2259%22%20cy=%229%22%20r=%228.5%22%20fill=%22%23ed8796%22/%3E%3Cpath%20d=%22M55.5%205.5l7%207M62.5%205.5l-7%207%22%20stroke=%22%23b11b31%22%20stroke-width=%221.6%22%20stroke-linecap=%22round%22/%3E%3C/svg%3E");
+
+        /* Neofeed variables */
+        --accent: var(--ctp-accent);
+        --color-primary: var(--ctp-text);
+        --color-secondary: var(--ctp-text-inactive);
+        --color-bg: var(--ctp-view);
+        --item-bg: var(--ctp-view);
+        --shadow-shape: 0 6px 28px;
+        --color-shadow: rgba(0, 0, 0, .45);
+        --scrollbar-bg: transparent;
+        --scrollbar-thumb: var(--ctp-scroll-thumb);
+        --scrollbar-border: var(--ctp-view);
+    }
+}
+
+/* --------------------------------------------------------------------------
+ * Desktop foundation
+ * ------------------------------------------------------------------------ */
+
+html {
+    background-color: var(--ctp-wallpaper-base);
+    background-image: var(--ctp-wallpaper);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    scroll-padding-top: calc(var(--ctp-panel-height) + 1.5rem);
+    scrollbar-color: var(--ctp-scroll-thumb) transparent;
+    scrollbar-width: thin;
+}
+
+body {
+    padding-bottom: 3rem;
+    background: transparent !important;
+    color: var(--ctp-text);
+    font-family: "Noto Sans", "Noto Sans Display", "Segoe UI", system-ui, -apple-system, "Ubuntu", sans-serif !important;
+    font-size: 15px;
+    line-height: 1.55;
+}
+
+main {
+    background: transparent !important;
+}
+
+a {
+    color: var(--ctp-link);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color var(--ctp-transition), border-color var(--ctp-transition), background-color var(--ctp-transition);
+}
+
+a:hover {
+    color: var(--ctp-link-hover);
+}
+
+:where(a, button, [tabindex]):focus-visible {
+    outline: 2px solid var(--ctp-focus-ring);
+    outline-offset: 2px;
+}
+
+::selection {
+    background: var(--ctp-accent);
+    color: var(--ctp-accent-text);
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--ctp-scroll-thumb);
+    background-clip: padding-box;
+    border: 3px solid transparent;
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--ctp-accent);
+}
+
+/* --------------------------------------------------------------------------
+ * Plasma panel header
+ * ------------------------------------------------------------------------ */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: var(--ctp-space-4) var(--ctp-space-4) 0;
+}
+
+header > section {
+    width: 100%;
+    margin: 0;
+}
+
+.header {
+    width: 100%;
+    max-width: 100vw;
+    min-height: var(--ctp-panel-height);
+    margin: 0 auto;
+    padding: 0 var(--ctp-space-3);
+    box-sizing: border-box;
+    background: var(--ctp-panel-bg);
+    color: var(--ctp-panel-text);
+    border: 1px solid var(--ctp-panel-border);
+    border-radius: var(--ctp-radius);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, .16);
+    -webkit-backdrop-filter: blur(18px) saturate(1.25);
+    backdrop-filter: blur(18px) saturate(1.25);
+}
+
+.header__item {
+    gap: var(--ctp-space-2);
+    color: var(--ctp-panel-text);
+}
+
+#logo {
+    display: flex;
+    align-items: center;
+    min-width: 18px;
+    padding: 0;
+    color: var(--ctp-panel-text);
+}
+
+#logo > a {
+    display: flex;
+    align-items: center;
+}
+
+#logo img {
+    width: auto;
+    max-height: 20px;
+}
+
+/* Plasma application launcher: a three-by-three grid of dots. */
+#logo:not(:has(img))::before {
+    content: "";
+    display: block;
+    width: 18px;
+    height: 18px;
+    background-image: radial-gradient(circle, currentColor 1.5px, transparent 1.8px);
+    background-position: center;
+    background-size: 6px 6px;
+    opacity: .9;
+}
+
+#site__name {
+    padding: 0 var(--ctp-space-1);
+    color: var(--ctp-panel-text);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .01em;
+    line-height: 1.2;
+}
+
+#site__name:hover {
+    color: var(--ctp-panel-text);
+}
+
+.header nav {
+    min-height: 0;
+    margin: 0;
+}
+
+.header nav ul {
+    gap: var(--ctp-space-1);
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.header nav ul li {
+    margin: 0;
+}
+
+.header a,
+.header a:visited,
+.header .menu__item {
+    color: var(--ctp-panel-text);
+}
+
+.header .menu__item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 30px;
+    padding: var(--ctp-space-2) 10px;
+    border: 1px solid transparent;
+    border-radius: var(--ctp-radius);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.header .menu__item svg {
+    width: 18px;
+    height: 18px;
+}
+
+.header .menu__item:hover,
+.header .menu__item:focus-visible {
+    background: var(--ctp-panel-hover);
+    border-color: var(--ctp-accent);
+    color: var(--ctp-panel-text);
+}
+
+/* --------------------------------------------------------------------------
+ * Author card (Plasma widget)
+ * ------------------------------------------------------------------------ */
+
+#author {
+    position: relative;
+    width: 100%;
+    margin: 2rem 0 0;
+    padding: calc(var(--ctp-titlebar-height) + var(--content-padding)) var(--content-padding) var(--content-padding);
+    box-sizing: border-box;
+    overflow: hidden;
+    background: var(--ctp-view);
+    border: 1px solid var(--ctp-border);
+    border-radius: var(--ctp-radius);
+    box-shadow: var(--ctp-window-shadow);
+}
+
+#author::before {
+    content: "About";
+    position: absolute;
+    inset: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--ctp-titlebar-height);
+    background: var(--ctp-titlebar);
+    border-bottom: 1px solid var(--ctp-border);
+    color: var(--ctp-titlebar-text);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .02em;
+    line-height: 1;
+}
+
+#author > .flex {
+    align-items: flex-start;
+}
+
+#author img.u-photo,
+#author-img {
+    width: 72px;
+    height: 72px;
+    max-height: 72px;
+    margin: 0 1rem 0 0;
+    overflow: hidden;
+    object-fit: cover;
+    background: var(--ctp-window-alt);
+    border: 1px solid var(--ctp-border);
+    border-radius: 50%;
+    color: transparent;
+}
+
+#author #card {
+    padding-left: 0;
+}
+
+#author h1.p-name {
+    margin: 0;
+    color: var(--ctp-text);
+    font-size: calc(1.45rem * var(--scale));
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+#author address.properties {
+    margin: var(--ctp-space-2) 0 0;
+    color: var(--ctp-text-inactive);
+    font-size: 12px;
+    font-style: normal;
+}
+
+#author address a {
+    color: var(--ctp-link);
+}
+
+#author .p-note {
+    padding-top: var(--ctp-space-3) !important;
+    padding-bottom: 0 !important;
+    margin: 0;
+    color: var(--ctp-text);
+    font-size: 14px;
+}
+
+#author .p-note a {
+    color: var(--ctp-link);
+}
+
+/* --------------------------------------------------------------------------
+ * Catppuccin windows (feed entries and single posts)
+ * ------------------------------------------------------------------------ */
+
+hr {
+    display: block;
+    width: 100%;
+    height: 0;
+    margin: 1.25rem 0;
+    border: 0;
+    border-top: 1px solid var(--ctp-border-soft);
+    background: none;
+}
+
+#feed__ul {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+}
+
+li.feed__li {
+    margin: 0 0 1.25rem;
+}
+
+.feed {
+    width: 100%;
+    margin: 0 0 1.25rem;
+}
+
+div.feed__content {
+    position: relative;
+    margin: 0;
+    padding: calc(var(--ctp-titlebar-height) + var(--content-padding)) var(--content-padding) var(--content-padding);
+    overflow: hidden;
+    background: var(--ctp-view);
+    border: 1px solid var(--ctp-border);
+    border-radius: var(--ctp-radius);
+    box-shadow: var(--ctp-window-shadow);
+    transition: border-color var(--ctp-transition), box-shadow var(--ctp-transition);
+}
+
+div.feed__content:hover {
+    border-color: var(--ctp-accent);
+    box-shadow: var(--ctp-window-shadow-hover);
+}
+
+/* Window titlebar */
+div.feed__content::before,
+.item-content::before {
+    content: "Neofeed";
+    position: absolute;
+    inset: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--ctp-titlebar-height);
+    padding: 0 84px;
+    box-sizing: border-box;
+    background: var(--ctp-titlebar);
+    border-bottom: 1px solid var(--ctp-border);
+    color: var(--ctp-titlebar-text);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .02em;
+    line-height: 1;
+}
+
+/* Window controls: Catppuccin "Modern" circular decorations. */
+div.feed__content::after,
+.item-content::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    width: 68px;
+    height: 18px;
+    background-color: transparent;
+    background-image: var(--ctp-window-controls);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: .95;
+    pointer-events: none;
+    transition: opacity var(--ctp-transition), filter var(--ctp-transition);
+}
+
+div.feed__content:hover::after,
+div.feed__content:focus-within::after,
+.item-content:hover::after {
+    opacity: 1;
+    filter: brightness(1.06);
+}
+
+/* Entry metadata */
+div.properties__row {
+    min-height: 1.25rem;
+    max-height: none;
+    margin-bottom: var(--ctp-space-1);
+    align-items: center;
+}
+
+.properties {
+    color: var(--ctp-text-inactive);
+    font-size: calc(.8rem * var(--scale));
+}
+
+.icon {
+    color: var(--ctp-text-inactive);
+    transition: color var(--ctp-transition);
+}
+
+.icon:hover {
+    color: var(--ctp-accent);
+}
+
+/* Headings use Catppuccin text; links keep the Catppuccin Mauve. */
+h2,
+h2 > a {
+    color: var(--ctp-text);
+    font-size: calc(21px * var(--scale));
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+h3 {
+    color: var(--ctp-text);
+    font-size: calc(18px * var(--scale));
+    font-weight: 600;
+}
+
+h2 > a:hover,
+h3 > a:hover {
+    color: var(--ctp-link);
+}
+
+/* Author row on single posts */
+.feed__content .properties__row img.u-photo {
+    width: 34px;
+    height: 34px;
+    max-height: 34px;
+    margin: 0 var(--ctp-space-3) 0 0;
+    overflow: hidden;
+    object-fit: cover;
+    background: var(--ctp-window-alt);
+    border: 1px solid var(--ctp-border);
+    border-radius: 50%;
+    color: transparent;
+}
+
+.feed__content #author-name {
+    margin: 0;
+    color: var(--ctp-text);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+/* --------------------------------------------------------------------------
+ * Badges, buttons, pagination
+ * ------------------------------------------------------------------------ */
+
+#tag {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 0 0 .35rem !important;
+    padding: var(--ctp-space-1) var(--ctp-space-4);
+    background: var(--ctp-tag-bg);
+    border: 1px solid var(--ctp-tag-border);
+    border-radius: var(--ctp-radius);
+    color: var(--ctp-tag-text);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+#tag:hover {
+    background: var(--ctp-tag-hover-bg);
+    border-color: var(--ctp-tag-hover-bg);
+    color: var(--ctp-tag-hover-text);
+}
+
+#open {
+    background: transparent;
+}
+
+#open > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 30px;
+    padding: var(--ctp-space-2) 12px;
+    background: var(--ctp-button);
+    border: 1px solid var(--ctp-border);
+    border-radius: var(--ctp-radius);
+    box-shadow: 0 1px 0 var(--ctp-button-shadow-color);
+    color: var(--ctp-text);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+#open > a:hover {
+    border-color: var(--ctp-accent);
+    color: var(--ctp-text);
+}
+
+#open > a:active {
+    background: var(--ctp-button-pressed);
+    border-color: var(--ctp-accent);
+    box-shadow: none;
+}
+
+footer {
+    width: 100%;
+    min-height: 0;
+    margin: 1.5rem auto 0;
+}
+
+.pagination {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: var(--ctp-space-3);
+    box-sizing: border-box;
+    background: var(--ctp-panel-bg);
+    border: 1px solid var(--ctp-panel-border);
+    border-radius: var(--ctp-radius);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, .14);
+    -webkit-backdrop-filter: blur(18px) saturate(1.25);
+    backdrop-filter: blur(18px) saturate(1.25);
+}
+
+.pag__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: var(--ctp-space-2) 12px;
+    border: 1px solid transparent;
+    border-radius: var(--ctp-radius);
+    color: var(--ctp-panel-text);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.pag__link:hover {
+    background: var(--ctp-panel-hover);
+    border-color: var(--ctp-accent);
+    color: var(--ctp-panel-text);
+}
+
+.pag__link:active {
+    background: var(--ctp-button-pressed);
+}
+
+/* Optional footer partial, if a site uses it. */
+#footer {
+    width: 100%;
+    margin: 1.5rem auto;
+    padding: var(--ctp-space-3) 12px;
+    box-sizing: border-box;
+    background: var(--ctp-panel-bg);
+    border: 1px solid var(--ctp-panel-border);
+    border-radius: var(--ctp-radius);
+    color: var(--ctp-panel-text);
+}
+
+#footer a {
+    color: var(--ctp-panel-text);
+}
+
+#footer a:hover {
+    color: var(--ctp-link);
+}
+
+/* --------------------------------------------------------------------------
+ * Markdown content
+ * ------------------------------------------------------------------------ */
+
+.md p > a,
+.md li > a {
+    border-bottom: 1px solid transparent;
+    color: var(--ctp-link);
+}
+
+.md p > a:hover,
+.md li > a:hover {
+    border-bottom-color: currentColor;
+}
+
+.md h1,
+.md h2,
+.md h3,
+.md h4 {
+    color: var(--ctp-text);
+}
+
+.md p:last-child {
+    padding-bottom: .75rem !important;
+}
+
+.md code {
+    padding: 1px 4px;
+    background: var(--ctp-view-alt);
+    border: 1px solid var(--ctp-border-soft);
+    border-radius: 3px;
+    color: var(--ctp-text);
+    font-family: "Hack", "Noto Sans Mono", "Cascadia Code", ui-monospace, monospace;
+    font-size: calc(.82rem * var(--scale));
+}
+
+div.highlight {
+    margin: 1rem 0;
+    background: var(--ctp-view-alt);
+    border: 1px solid var(--ctp-border);
+    border-radius: var(--ctp-radius);
+    scrollbar-color: var(--ctp-scroll-thumb) transparent;
+}
+
+div.highlight > pre {
+    margin: 0;
+    padding: 10px 12px;
+}
+
+div.highlight::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+div.highlight::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+div.highlight::-webkit-scrollbar-thumb {
+    background-color: var(--ctp-scroll-thumb);
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    border-radius: 999px;
+}
+
+.md table {
+    width: 100%;
+    margin: 1rem 0;
+    border: 1px solid var(--ctp-border);
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 14px;
+}
+
+.md th,
+.md td {
+    padding: var(--ctp-space-3) var(--ctp-space-4);
+    border: 1px solid var(--ctp-border);
+    text-align: left;
+}
+
+.md th {
+    background: var(--ctp-titlebar);
+    color: var(--ctp-text);
+    font-weight: 600;
+}
+
+.md tr:nth-child(even) td {
+    background: var(--ctp-view-alt);
+}
+
+blockquote {
+    padding: var(--ctp-space-2) 0 var(--ctp-space-2) 1rem;
+    background: var(--ctp-quote-bg);
+    border-left: 3px solid var(--ctp-accent);
+    border-radius: 0 var(--ctp-radius) var(--ctp-radius) 0;
+    color: var(--ctp-text);
+    font-style: normal;
+}
+
+.md blockquote p:first-child {
+    padding-top: 0 !important;
+}
+
+.enclosure,
+.md img,
+.md video,
+.md iframe {
+    max-width: 100%;
+    background: var(--ctp-view-alt);
+    border: 1px solid var(--ctp-border);
+    border-radius: var(--ctp-radius);
+}
+
+.enclosure {
+    box-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
+ * Webmentions and reactions
+ * ------------------------------------------------------------------------ */
+
+#wm-link {
+    margin: 1rem 0;
+    padding: var(--ctp-space-2) 10px;
+    background: var(--ctp-accent-strong);
+    border: 1px solid var(--ctp-accent-strong);
+    border-radius: var(--ctp-radius);
+    box-shadow: 0 1px 0 var(--ctp-button-shadow-color);
+    color: var(--ctp-accent-text);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+#wm-link:hover {
+    background: var(--ctp-accent);
+    border-color: var(--ctp-accent);
+    color: var(--ctp-accent-text);
+    filter: brightness(.95);
+}
+
+div#webmentions {
+    margin: 1.25rem 0;
+}
+
+#webmentions h2 {
+    color: var(--ctp-text);
+    font-size: calc(1.25rem * var(--scale));
+}
+
+div.webmention {
+    padding: .75rem 0 .75rem 52px;
+    border-bottom: 1px solid var(--ctp-border-soft);
+}
+
+div.webmention:last-child {
+    border-bottom: 0;
+}
+
+img.webmention__author__img {
+    top: .75rem;
+    width: 38px;
+    height: 38px;
+    overflow: hidden;
+    background: var(--ctp-window-alt);
+    border: 1px solid var(--ctp-border);
+    border-radius: 50%;
+    color: transparent;
+}
+
+div.webmention__content {
+    color: var(--ctp-text);
+    font-size: .9rem;
+}
+
+.webmention__meta > a {
+    color: var(--ctp-link);
+}
+
+#counter {
+    top: -2px;
+    padding: 0 6px;
+    background: var(--ctp-accent);
+    border-radius: 999px;
+    color: var(--ctp-accent-text);
+    font-size: 11px;
+    line-height: 18px;
+}
+
+a.reaction {
+    text-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
+ * Taxonomy and terms layouts
+ * ------------------------------------------------------------------------ */
+
+.container,
+#feed-container {
+    width: 100%;
+}
+
+#tag-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#tag-list + #tag-list {
+    border-top: 1px solid var(--ctp-border-soft);
+}
+
+#tag-list > div > a {
+    display: block;
+    padding: var(--ctp-space-3) 10px;
+    border: 1px solid transparent;
+    border-radius: var(--ctp-radius);
+    color: var(--ctp-text);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+#tag-list > div > a:hover {
+    background: var(--ctp-panel-hover);
+    border-color: var(--ctp-accent);
+}
+
+.item {
+    width: 100%;
+    margin: 0 0 1.25rem;
+}
+
+.item-content {
+    position: relative;
+    overflow: hidden;
+    padding: calc(var(--ctp-titlebar-height) + 1.25rem) 1.25rem 1.25rem;
+    background: var(--ctp-view);
+    border: 1px solid var(--ctp-border);
+    border-radius: var(--ctp-radius);
+    box-shadow: var(--ctp-window-shadow);
+    transition: border-color var(--ctp-transition), box-shadow var(--ctp-transition);
+}
+
+.item-content:hover {
+    border-color: var(--ctp-accent);
+    box-shadow: var(--ctp-window-shadow-hover);
+}
+
+.item-head {
+    padding-bottom: var(--ctp-space-3);
+    margin-bottom: var(--ctp-space-3);
+    border-bottom: 1px solid var(--ctp-border-soft);
+}
+
+.item-head img {
+    width: 38px;
+    height: 38px;
+    margin-right: var(--ctp-space-3);
+    overflow: hidden;
+    object-fit: cover;
+    background: var(--ctp-window-alt);
+    border: 1px solid var(--ctp-border);
+    border-radius: 50%;
+    color: transparent;
+}
+
+#author-name {
+    color: var(--ctp-text);
+    font-weight: 600;
+}
+
+.meta {
+    color: var(--ctp-text-inactive);
+    font-size: 12px;
+}
+
+.markdown a.meta {
+    display: inline-flex;
+    margin: 0 .25rem .35rem 0;
+    padding: var(--ctp-space-1) var(--ctp-space-4);
+    background: var(--ctp-tag-bg);
+    border: 1px solid var(--ctp-tag-border);
+    border-radius: var(--ctp-radius);
+    color: var(--ctp-tag-text);
+}
+
+.markdown a.meta:hover {
+    background: var(--ctp-tag-hover-bg);
+    border-color: var(--ctp-tag-hover-bg);
+    color: var(--ctp-tag-hover-text);
+}
+
+/* --------------------------------------------------------------------------
+ * 404: keep the glitch, tune it to Catppuccin
+ * ------------------------------------------------------------------------ */
+
+.glitch {
+    background: transparent !important;
+    color: var(--ctp-negative) !important;
+}
+
+.glitch::before,
+.glitch::after {
+    background: transparent !important;
+}
+
+.glitch::before {
+    text-shadow: -2px 0 var(--ctp-accent) !important;
+}
+
+.glitch::after {
+    text-shadow: -2px 0 var(--ctp-negative) !important;
+}
+
+/* --------------------------------------------------------------------------
+ * Responsive adjustments
+ * ------------------------------------------------------------------------ */
+
+@media (max-width: 600px) {
+    html {
+        background-attachment: scroll;
+    }
+}
+
+@media (max-width: 414px) {
+    :root {
+        --ctp-titlebar-height: 28px;
+    }
+
+    header {
+        padding: var(--ctp-space-3) var(--ctp-space-3) 0;
+    }
+
+    .header {
+        flex-direction: row !important;
+        min-height: 40px;
+        padding: var(--ctp-space-1) 7px !important;
+        gap: var(--ctp-space-1);
+    }
+
+    .header__item {
+        min-width: 0;
+        gap: var(--ctp-space-1);
+    }
+
+    #site__name {
+        padding: 0 var(--ctp-space-1);
+        overflow: hidden;
+        font-size: 14px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .header nav ul {
+        gap: 0;
+    }
+
+    .header nav ul li {
+        margin: 0;
+    }
+
+    .header .menu__item {
+        min-height: 28px;
+        padding: var(--ctp-space-2) 6px;
+        font-size: 10px;
+    }
+
+    .header .menu__item svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    #author {
+        padding: calc(var(--ctp-titlebar-height) + 1rem) 1rem 1rem;
+    }
+
+    #author::before {
+        font-size: 11px;
+    }
+
+    div.feed__content {
+        padding: calc(var(--ctp-titlebar-height) + 1rem) 1rem 1rem;
+    }
+
+    div.feed__content::before,
+    .item-content::before {
+        padding: 0 68px;
+        font-size: 11px;
+    }
+
+    div.feed__content::after,
+    .item-content::after {
+        top: 7px;
+        right: 8px;
+        width: 60px;
+        height: 16px;
+    }
+
+    .item-content {
+        padding: calc(var(--ctp-titlebar-height) + 1rem) 1rem 1rem;
+    }
+
+    .pagination {
+        padding: var(--ctp-space-2);
+    }
+
+    .pag__link {
+        min-height: 28px;
+        padding: var(--ctp-space-2) 8px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
