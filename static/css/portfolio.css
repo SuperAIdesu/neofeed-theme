@@ -1,0 +1,231 @@
+/* Portfolio sections: experience, projects, talks */
+
+.portfolio {
+    width: 100%;
+}
+
+.pf-head {
+    width: 100%;
+    margin: 2rem 0 1.5rem;
+}
+
+.pf-eyebrow {
+    color: var(--color-secondary);
+    font-size: calc(0.75rem * var(--scale));
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.pf-title {
+    margin: 0.25rem 0 0;
+    color: var(--accent);
+    font-size: calc(1.75rem * var(--scale));
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.pf-intro {
+    width: 100%;
+    max-width: 65ch;
+    color: var(--color-secondary);
+}
+
+.pf-intro p {
+    padding-top: 0.75rem;
+}
+
+.pf-intro p:last-child {
+    padding-bottom: 0 !important;
+}
+
+.pf-empty {
+    width: 100%;
+    padding: 2rem 0;
+    color: var(--color-secondary);
+}
+
+/* Shared row layout for experience and talks */
+
+.pf-list {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pf-entry {
+    display: grid;
+    grid-template-columns: 9.5rem minmax(0, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+    padding: 1.25rem 0;
+    border-top: 1px solid color-mix(in srgb, var(--color-secondary) 30%, transparent);
+}
+
+.pf-entry:last-child {
+    border-bottom: 1px solid color-mix(in srgb, var(--color-secondary) 30%, transparent);
+}
+
+.pf-entry__when {
+    padding-top: 0.2rem;
+    color: var(--color-secondary);
+    font-size: calc(0.8rem * var(--scale));
+    font-variant-numeric: tabular-nums;
+}
+
+.pf-entry__body {
+    min-width: 0;
+}
+
+.pf-entry__title {
+    margin: 0;
+}
+
+.pf-entry__meta {
+    margin-top: 0.25rem;
+    color: var(--color-secondary);
+    font-size: calc(0.9rem * var(--scale));
+}
+
+.pf-entry__summary {
+    margin-top: 0.5rem;
+}
+
+.pf-entry__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+/* Project grid */
+
+.pf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    gap: 1.25rem;
+    width: 100%;
+}
+
+.pf-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    background-color: var(--item-bg);
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-shape) var(--color-shadow);
+}
+
+.pf-card__title {
+    margin: 0;
+}
+
+.pf-card__summary {
+    margin-top: 0.5rem;
+    color: var(--color-secondary);
+}
+
+.pf-card__bottom {
+    margin-top: auto;
+    padding-top: 0.75rem;
+}
+
+/* Tags / technology chips */
+
+.pf-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pf-chip,
+.pf-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.55rem;
+    background-color: color-mix(in srgb, var(--accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+    border-radius: 999px;
+    color: var(--color-secondary);
+    font-size: calc(0.75rem * var(--scale));
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.pf-badge {
+    width: fit-content;
+    margin-left: auto;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.pf-card__header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+/* Links and buttons */
+
+.pf-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.pf-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.65rem;
+    border: 1px solid var(--accent);
+    border-radius: var(--border-radius);
+    color: var(--accent);
+    font-size: calc(0.8rem * var(--scale));
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.pf-link:hover,
+.pf-link:focus-visible {
+    background-color: color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+/* Single experience / project / talk page */
+
+.pf-single {
+    width: 100%;
+}
+
+.pf-single__meta {
+    margin-top: 0.5rem;
+    color: var(--color-secondary);
+}
+
+.pf-content {
+    width: 100%;
+    max-width: 65ch;
+    padding-top: 0.5rem;
+}
+
+.pf-back {
+    margin: 2rem 0;
+    font-size: calc(0.85rem * var(--scale));
+}
+
+@media (max-width: 600px) {
+    .pf-entry {
+        grid-template-columns: 1fr;
+        gap: 0.35rem;
+    }
+
+    .pf-entry__when {
+        padding-top: 0;
+    }
+}

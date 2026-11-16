@@ -20,6 +20,8 @@
 - [IndieWeb Features](#indieweb-features)
   - [Different Post Types](#different-post-types)
 - [Learn and Customize with Hugo](#learn-and-customize-with-hugo)
+  - [Site Navigation](#site-navigation)
+  - [Portfolio Sections](#portfolio-sections)
   - [Edit or Create a CSS Skin](#edit-or-create-a-css-skin)
   - [Totally Optional Cool Stuff](#totally-optional-cool-stuff)
     - [Plausible](#plausible)
@@ -159,6 +161,44 @@ If you wish to edit the theme, create a CSS skin, or preview your timeline local
 You can install the latest version by running `make gethugo`.
 
 To see available Hugo commands, type `hugo --help`. [Hugo's searchable documentation](https://gohugo.io/documentation/) is also excellent. I recommend familiarizing yourself with Hugo's concepts using the [Quickstart](https://gohugo.io/getting-started/quick-start/).
+
+### Site Navigation
+
+The header renders entries from `site.Menus.main`, sorted by weight, between the
+home icon and the feed output links:
+
+```toml
+[[menus.main]]
+name = "Projects"
+pageRef = "/projects"
+weight = 20
+```
+
+The home feed is limited to `mainSections`, so portfolio sections do not appear
+in the timeline:
+
+```toml
+[params]
+mainSections = ["posts"]
+```
+
+### Portfolio Sections
+
+Sections named `experience`, `projects`, and `talks` have dedicated list and
+single layouts. Their front matter is free-form; the templates read these keys:
+
+| Section | List layout | Front matter |
+| --- | --- | --- |
+| `experience` | Reverse-chronological timeline | `company`, `location`, `employment`, `website`, `endDate`, `tech`, `summary` |
+| `projects` | Card grid | `summary`, `status`, `tech`, `repo`, `demo` |
+| `talks` | Event list | `event`, `venue`, `summary`, `slides`, `video` |
+
+For `experience`, `date` is the start date and `endDate` is optional (omit it for
+the current role). Add entries with `hugo new experience/my-role.md`,
+`hugo new projects/my-project.md`, or `hugo new talks/my-talk.md`.
+
+Styles for these sections live in `static/css/portfolio.css` and use the theme's
+skin variables, so they follow the active light/dark skin.
 
 ### Edit or Create a CSS Skin
 

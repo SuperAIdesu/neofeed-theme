@@ -1,5 +1,6 @@
 @import "vars.css";
 @import "feed.css";
+@import "portfolio.css";
 @import "md.css";
 @import "wm.css";
 @import "h-card.css";
@@ -96,11 +97,32 @@ nav ul {
     width: 100%;
     margin: 0;
     justify-content: flex-end;
+    flex-wrap: wrap;
 }
 
 nav ul li {
     list-style-type: none;
-    margin: 0 2rem;
+    margin: 0 0.75rem;
+}
+
+.menu__item {
+    white-space: nowrap;
+}
+
+.menu__item[aria-current="page"] {
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+}
+
+@media (max-width: 600px) {
+    nav ul li {
+        margin: 0 0.5rem;
+    }
+
+    nav ul {
+        justify-content: center;
+    }
 }
 
 main {
