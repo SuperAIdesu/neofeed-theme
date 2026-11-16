@@ -200,6 +200,27 @@ the current role). Add entries with `hugo new experience/my-role.md`,
 Styles for these sections live in `static/css/portfolio.css` and use the theme's
 skin variables, so they follow the active light/dark skin.
 
+Each section page renders as a desktop application window: a titlebar with
+decorative window controls, an optional back affordance on detail pages, and
+either a list view (`experience`, `talks`) or a grid view (`projects`). Rows
+alternate background colors so metadata stays visually tied to its entry, and
+the status bar is omitted on narrow screens, following the KDE HIG.
+
+The window chrome is driven by `--pf-*` tokens. `static/css/vars.css` sets
+neutral defaults for every skin; `breeze.css` and `catppuccin.css` map the tokens
+onto their own window palette. A new skin only needs to override the tokens it
+cares about:
+
+| Token | Purpose |
+| --- | --- |
+| `--pf-window-bg`, `--pf-window-border`, `--pf-window-radius` | Window frame |
+| `--pf-titlebar-bg`, `--pf-titlebar-text`, `--pf-titlebar-height` | Titlebar |
+| `--pf-controls-image` / `--pf-controls-mask` | Window controls (image or mask) |
+| `--pf-tile-bg`, `--pf-border`, `--pf-border-soft` | Surfaces and dividers |
+| `--pf-text`, `--pf-text-muted`, `--pf-link`, `--pf-accent` | Typography |
+| `--pf-button-*`, `--pf-tag-*` | Buttons and chips |
+| `--pf-row-alt-bg`, `--pf-row-hover-bg` | List view row states |
+
 ### Edit or Create a CSS Skin
 
 Look in `static/skins/` to find the CSS files that give Neofeed personality. Choose one or create your own and configure your Neofeed to use it in `config.toml`:

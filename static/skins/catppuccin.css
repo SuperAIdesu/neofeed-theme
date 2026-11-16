@@ -233,6 +233,57 @@
 }
 
 /* --------------------------------------------------------------------------
+ * Portfolio windows
+ * ------------------------------------------------------------------------ */
+
+:root {
+    --pf-window-bg: var(--ctp-view);
+    --pf-window-border: var(--ctp-border);
+    --pf-window-radius: var(--ctp-radius);
+    --pf-window-shadow: var(--ctp-window-shadow);
+    --pf-window-shadow-hover: var(--ctp-window-shadow-hover);
+    --pf-titlebar-bg: var(--ctp-titlebar);
+    --pf-titlebar-text: var(--ctp-titlebar-text);
+    --pf-titlebar-height: var(--ctp-titlebar-height);
+    --pf-titlebar-padding: 84px;
+    --pf-controls-image: var(--ctp-window-controls);
+    --pf-controls-mask: none;
+    --pf-controls-bg: transparent;
+    --pf-controls-hover-bg: transparent;
+    --pf-controls-hover-filter: brightness(1.06);
+    --pf-controls-width: 68px;
+    --pf-controls-height: 18px;
+    --pf-controls-top: 8px;
+    --pf-controls-right: 10px;
+    --pf-toolbar-bg: var(--ctp-view-alt);
+    --pf-row-alt-bg: var(--ctp-view-alt);
+    --pf-row-hover-bg: var(--ctp-panel-hover);
+    --pf-tile-bg: var(--ctp-view-alt);
+    --pf-border: var(--ctp-border);
+    --pf-border-soft: var(--ctp-border-soft);
+    --pf-text: var(--ctp-text);
+    --pf-text-muted: var(--ctp-text-inactive);
+    --pf-link: var(--ctp-link);
+    --pf-accent: var(--ctp-accent);
+    --pf-radius: var(--ctp-radius);
+    --pf-space-1: var(--ctp-space-1);
+    --pf-space-2: var(--ctp-space-2);
+    --pf-space-3: var(--ctp-space-3);
+    --pf-space-4: var(--ctp-space-4);
+    --pf-button-bg: var(--ctp-button);
+    --pf-button-border: var(--ctp-overlay0);
+    --pf-button-text: var(--ctp-text);
+    --pf-button-shadow: 0 1px 0 var(--ctp-button-shadow-color);
+    --pf-button-pressed: var(--ctp-button-pressed);
+    --pf-tag-bg: var(--ctp-tag-bg);
+    --pf-tag-border: var(--ctp-tag-border);
+    --pf-tag-text: var(--ctp-tag-text);
+    --pf-focus-ring: var(--ctp-focus-ring);
+    --pf-transition: var(--ctp-transition);
+    --pf-positive: var(--ctp-positive);
+}
+
+/* --------------------------------------------------------------------------
  * Desktop foundation
  * ------------------------------------------------------------------------ */
 

@@ -1,0 +1,14 @@
+<!-- Application window titlebar, styled by the active skin. -->
+<div class="pf-titlebar">
+    {{ if .IsPage }}
+    <a class="pf-titlebar__back" href="{{ .CurrentSection.RelPermalink }}" aria-label="Back to {{ .CurrentSection.Title }}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-chevron-left" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </a>
+    {{ end }}
+    <span class="pf-titlebar__title">{{ .Title }} — {{ site.Title }}</span>
+    <span class="pf-controls" aria-hidden="true"></span>
+</div>

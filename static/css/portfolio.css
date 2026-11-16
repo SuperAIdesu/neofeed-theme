@@ -1,26 +1,161 @@
-/* Portfolio sections: experience, projects, talks */
+/* Portfolio sections: experience, projects, talks.
+ *
+ * Each section page is rendered as a single application window: a titlebar
+ * with decorative window controls, a page header, and either a list view
+ * (experience, talks) or a grid view (projects). Styles use --pf-* tokens
+ * defined in vars.css and mapped to the Breeze/Catppuccin skins.
+ */
 
 .portfolio {
     width: 100%;
 }
 
+/* The theme sets html { box-sizing: border-box } without inheriting it, and
+ * also sets article { width: 100% }. Scope border-box to portfolio windows so
+ * grid tiles and padded regions keep their intended size. */
+.pf-window,
+.pf-window *,
+.pf-window *::before,
+.pf-window *::after {
+    box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+ * Window frame
+ * ------------------------------------------------------------------------ */
+
+.pf-window {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: var(--pf-window-bg);
+    border: 1px solid var(--pf-window-border);
+    border-radius: var(--pf-window-radius);
+    box-shadow: var(--pf-window-shadow);
+}
+
+.pf-titlebar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--pf-titlebar-height);
+    padding: 0 var(--pf-titlebar-padding);
+    box-sizing: border-box;
+    background: var(--pf-titlebar-bg);
+    border-bottom: 1px solid var(--pf-window-border);
+    color: var(--pf-titlebar-text);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1;
+}
+
+.pf-titlebar__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Back affordance in the titlebar, following the KDE toolbar convention. */
+.pf-titlebar__back {
+    position: absolute;
+    top: 0;
+    left: var(--pf-space-2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(var(--pf-titlebar-height) - 8px);
+    height: calc(var(--pf-titlebar-height) - 8px);
+    margin-top: 4px;
+    border: 1px solid transparent;
+    border-radius: var(--pf-radius);
+    color: var(--pf-titlebar-text);
+    line-height: 1;
+    text-decoration: none;
+}
+
+.pf-titlebar__back svg {
+    width: 15px;
+    height: 15px;
+}
+
+.pf-titlebar__back:hover,
+.pf-titlebar__back:focus-visible {
+    background: var(--pf-row-hover-bg);
+    border-color: var(--pf-accent);
+    color: var(--pf-titlebar-text);
+}
+
+/* Window controls: maskable SVG on Breeze, full-color SVG on Catppuccin. */
+.pf-controls {
+    position: absolute;
+    top: var(--pf-controls-top);
+    right: var(--pf-controls-right);
+    width: var(--pf-controls-width);
+    height: var(--pf-controls-height);
+    background-color: var(--pf-controls-bg);
+    background-image: var(--pf-controls-image);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.85;
+    -webkit-mask-image: var(--pf-controls-mask);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+    mask-image: var(--pf-controls-mask);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    pointer-events: none;
+    transition: background-color var(--pf-transition), opacity var(--pf-transition), filter var(--pf-transition);
+}
+
+.pf-window:hover .pf-controls,
+.pf-window:focus-within .pf-controls {
+    background-color: var(--pf-controls-hover-bg);
+    filter: var(--pf-controls-hover-filter);
+    opacity: 1;
+}
+
+.pf-window__body {
+    background: var(--pf-window-bg);
+}
+
+.pf-window__body--padded {
+    padding: var(--content-padding);
+}
+
+/* --------------------------------------------------------------------------
+ * Page header
+ * ------------------------------------------------------------------------ */
+
 .pf-head {
     width: 100%;
-    margin: 2rem 0 1.5rem;
+}
+
+.pf-pad {
+    padding: var(--content-padding);
+}
+
+.pf-head.pf-pad {
+    padding-bottom: calc(var(--content-padding) / 2);
 }
 
 .pf-eyebrow {
-    color: var(--color-secondary);
-    font-size: calc(0.75rem * var(--scale));
+    margin: 0;
+    color: var(--pf-text-muted);
+    font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
 
 .pf-title {
-    margin: 0.25rem 0 0;
-    color: var(--accent);
-    font-size: calc(1.75rem * var(--scale));
+    margin: var(--pf-space-1) 0 0;
+    color: var(--pf-text);
+    font-size: calc(1.6rem * var(--scale));
     font-weight: 700;
     line-height: 1.2;
 }
@@ -28,24 +163,22 @@
 .pf-intro {
     width: 100%;
     max-width: 65ch;
-    color: var(--color-secondary);
+    margin-top: var(--pf-space-2);
+    color: var(--pf-text-muted);
+    font-size: calc(0.9rem * var(--scale));
 }
 
 .pf-intro p {
-    padding-top: 0.75rem;
+    padding-top: 0.5rem;
 }
 
 .pf-intro p:last-child {
     padding-bottom: 0 !important;
 }
 
-.pf-empty {
-    width: 100%;
-    padding: 2rem 0;
-    color: var(--color-secondary);
-}
-
-/* Shared row layout for experience and talks */
+/* --------------------------------------------------------------------------
+ * List view (experience, talks)
+ * ------------------------------------------------------------------------ */
 
 .pf-list {
     width: 100%;
@@ -54,91 +187,155 @@
     list-style: none;
 }
 
-.pf-entry {
+.pf-row {
     display: grid;
     grid-template-columns: 9.5rem minmax(0, 1fr);
-    gap: 1.5rem;
-    width: 100%;
-    padding: 1.25rem 0;
-    border-top: 1px solid color-mix(in srgb, var(--color-secondary) 30%, transparent);
+    gap: 1.25rem;
+    padding: 0.9rem var(--content-padding);
+    border-top: 1px solid var(--pf-border-soft);
+    transition: background-color var(--pf-transition);
 }
 
-.pf-entry:last-child {
-    border-bottom: 1px solid color-mix(in srgb, var(--color-secondary) 30%, transparent);
+/* Alternate row backgrounds, per the KDE HIG, to tie right-hand metadata
+ * visually to its row. */
+.pf-row:nth-child(even) {
+    background: var(--pf-row-alt-bg);
 }
 
-.pf-entry__when {
-    padding-top: 0.2rem;
-    color: var(--color-secondary);
+.pf-row:hover {
+    background: var(--pf-row-hover-bg);
+}
+
+.pf-row__when {
+    padding-top: 0.15rem;
+    color: var(--pf-text-muted);
     font-size: calc(0.8rem * var(--scale));
     font-variant-numeric: tabular-nums;
 }
 
-.pf-entry__body {
+.pf-row__main {
     min-width: 0;
 }
 
-.pf-entry__title {
+.pf-row__title {
     margin: 0;
+    font-size: calc(1.05rem * var(--scale));
+    line-height: 1.3;
 }
 
-.pf-entry__meta {
-    margin-top: 0.25rem;
-    color: var(--color-secondary);
+.pf-row__title > a {
+    color: var(--pf-text);
+}
+
+.pf-row__title > a:hover,
+.pf-row__title > a:focus-visible {
+    color: var(--pf-link);
+}
+
+.pf-row__summary,
+.pf-tile__summary {
+    margin-top: var(--pf-space-2);
+    color: var(--pf-text);
     font-size: calc(0.9rem * var(--scale));
 }
 
-.pf-entry__summary {
-    margin-top: 0.5rem;
+.pf-row__summary p,
+.pf-tile__summary p {
+    padding-top: 0;
 }
 
-.pf-entry__links {
+.pf-row__summary p:last-child,
+.pf-tile__summary p:last-child {
+    padding-bottom: 0 !important;
+}
+
+/* Metadata with separators between items, without leading/trailing dots. */
+.pf-row__meta,
+.pf-tile__meta,
+.pf-meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.75rem;
+    align-items: center;
+    margin-top: var(--pf-space-1);
+    color: var(--pf-text-muted);
+    font-size: calc(0.8rem * var(--scale));
 }
 
-/* Project grid */
+.pf-row__meta > * + *::before,
+.pf-tile__meta > * + *::before,
+.pf-meta > * + *::before {
+    content: "·";
+    margin: 0 0.45rem;
+    opacity: 0.7;
+}
+
+.pf-row__meta a,
+.pf-meta a {
+    color: var(--pf-link);
+}
+
+/* --------------------------------------------------------------------------
+ * Grid view (projects)
+ * ------------------------------------------------------------------------ */
 
 .pf-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
-    gap: 1.25rem;
-    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: var(--content-padding);
+    padding: 0 var(--content-padding) var(--content-padding);
 }
 
-.pf-card {
+.pf-tile {
     display: flex;
     flex-direction: column;
-    padding: 1.25rem;
-    background-color: var(--item-bg);
-    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-shape) var(--color-shadow);
+    padding: var(--content-padding);
+    background: var(--pf-tile-bg);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius);
+    transition: border-color var(--pf-transition), box-shadow var(--pf-transition);
 }
 
-.pf-card__title {
+.pf-tile:hover,
+.pf-tile:focus-within {
+    border-color: var(--pf-accent);
+    box-shadow: var(--pf-window-shadow);
+}
+
+.pf-tile__header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--pf-space-4);
+}
+
+.pf-tile__title {
     margin: 0;
+    font-size: calc(1.05rem * var(--scale));
+    line-height: 1.3;
 }
 
-.pf-card__summary {
-    margin-top: 0.5rem;
-    color: var(--color-secondary);
+.pf-tile__title > a {
+    color: var(--pf-text);
 }
 
-.pf-card__bottom {
+.pf-tile__title > a:hover,
+.pf-tile__title > a:focus-visible {
+    color: var(--pf-link);
+}
+
+.pf-tile__bottom {
     margin-top: auto;
-    padding-top: 0.75rem;
+    padding-top: var(--pf-space-4);
 }
 
-/* Tags / technology chips */
+/* --------------------------------------------------------------------------
+ * Chips, badges, buttons
+ * ------------------------------------------------------------------------ */
 
 .pf-chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
-    margin: 0.75rem 0 0;
+    gap: var(--pf-space-2);
+    margin: var(--pf-space-3) 0 0;
     padding: 0;
     list-style: none;
 }
@@ -147,85 +344,166 @@
 .pf-badge {
     display: inline-flex;
     align-items: center;
-    padding: 0.15rem 0.55rem;
-    background-color: color-mix(in srgb, var(--accent) 12%, transparent);
-    border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
-    border-radius: 999px;
-    color: var(--color-secondary);
-    font-size: calc(0.75rem * var(--scale));
+    padding: var(--pf-space-1) var(--pf-space-4);
+    background: var(--pf-tag-bg);
+    border: 1px solid var(--pf-tag-border);
+    border-radius: var(--pf-radius);
+    color: var(--pf-tag-text);
+    font-size: 12px;
     font-weight: 600;
     line-height: 1.4;
 }
 
 .pf-badge {
-    width: fit-content;
+    flex: none;
     margin-left: auto;
-    color: var(--accent);
+    font-size: 10px;
     letter-spacing: 0.04em;
     text-transform: uppercase;
 }
 
-.pf-card__header {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
+.pf-badge--active {
+    background: color-mix(in srgb, var(--pf-positive) 12%, transparent);
+    border-color: color-mix(in srgb, var(--pf-positive) 45%, transparent);
+    color: var(--pf-positive);
 }
 
-/* Links and buttons */
+.pf-badge--archived {
+    background: transparent;
+    border-color: var(--pf-border);
+    color: var(--pf-text-muted);
+}
 
-.pf-links {
+.pf-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.75rem;
+    gap: var(--pf-space-2);
+    margin-top: var(--pf-space-3);
 }
 
-.pf-link {
+.pf-button {
     display: inline-flex;
     align-items: center;
-    padding: 0.3rem 0.65rem;
-    border: 1px solid var(--accent);
-    border-radius: var(--border-radius);
-    color: var(--accent);
-    font-size: calc(0.8rem * var(--scale));
+    justify-content: center;
+    min-height: 30px;
+    padding: var(--pf-space-2) 12px;
+    background: var(--pf-button-bg);
+    border: 1px solid var(--pf-button-border);
+    border-radius: var(--pf-radius);
+    box-shadow: var(--pf-button-shadow);
+    color: var(--pf-button-text);
+    font-size: 13px;
     font-weight: 600;
-    line-height: 1.4;
+    line-height: 1;
 }
 
-.pf-link:hover,
-.pf-link:focus-visible {
-    background-color: color-mix(in srgb, var(--accent) 15%, transparent);
+.pf-button:hover,
+.pf-button:focus-visible {
+    border-color: var(--pf-accent);
+    color: var(--pf-button-text);
 }
 
-/* Single experience / project / talk page */
-
-.pf-single {
-    width: 100%;
+.pf-button:active {
+    background: var(--pf-button-pressed);
+    border-color: var(--pf-accent);
+    box-shadow: none;
 }
 
-.pf-single__meta {
-    margin-top: 0.5rem;
-    color: var(--color-secondary);
+.pf-button:focus-visible {
+    outline: 2px solid var(--pf-focus-ring);
+    outline-offset: 2px;
 }
+
+/* --------------------------------------------------------------------------
+ * Status bar
+ * ------------------------------------------------------------------------ */
+
+.pf-statusbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: var(--pf-space-1) 12px;
+    background: var(--pf-toolbar-bg);
+    border-top: 1px solid var(--pf-border);
+    color: var(--pf-text-muted);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+ * Single item page
+ * ------------------------------------------------------------------------ */
 
 .pf-content {
     width: 100%;
     max-width: 65ch;
-    padding-top: 0.5rem;
+    margin-top: var(--content-padding);
+    padding-top: var(--content-padding);
+    border-top: 1px solid var(--pf-border-soft);
 }
 
-.pf-back {
-    margin: 2rem 0;
+.pf-content > p:first-child {
+    padding-top: 0;
+}
+
+.pf-single-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: var(--pf-space-2);
+    color: var(--pf-text-muted);
     font-size: calc(0.85rem * var(--scale));
 }
 
+.pf-single-meta > * + *::before {
+    content: "·";
+    margin: 0 0.45rem;
+    opacity: 0.7;
+}
+
+.pf-single-meta a {
+    color: var(--pf-link);
+}
+
+.pf-back {
+    margin: var(--content-padding) 0 0;
+}
+
+/* --------------------------------------------------------------------------
+ * Empty state and responsive behavior
+ * ------------------------------------------------------------------------ */
+
+.pf-empty {
+    padding: var(--content-padding);
+    color: var(--pf-text-muted);
+    list-style: none;
+}
+
 @media (max-width: 600px) {
-    .pf-entry {
+    .pf-row {
         grid-template-columns: 1fr;
-        gap: 0.35rem;
+        gap: 0.25rem;
     }
 
-    .pf-entry__when {
+    .pf-row__when {
         padding-top: 0;
+    }
+
+    /* The KDE HIG omits status bars on narrow/mobile layouts. */
+    .pf-statusbar {
+        display: none;
+    }
+}
+
+@media (max-width: 414px) {
+    .pf-titlebar {
+        font-size: 11px;
+    }
+
+    .pf-controls {
+        top: 7px;
+        right: 8px;
+        width: calc(var(--pf-controls-width) * 0.82);
+        height: calc(var(--pf-controls-height) * 0.82);
     }
 }

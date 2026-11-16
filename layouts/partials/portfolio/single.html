@@ -1,47 +1,52 @@
 <main aria-role="main">
     <section class="portfolio">
-        <article class="pf-single">
-            <header class="pf-head">
-                <p class="pf-eyebrow">{{ .Section | humanize }}</p>
-                <h1 class="pf-title">{{ .Title }}</h1>
-                <p class="pf-single__meta">
-                    {{ if eq .Section "experience" }}
-                    {{ with .Params.company }}{{ . }}{{ end }}
-                    {{ with .Params.location }} · {{ . }}{{ end }}
-                    · {{ .Date.Format "Jan 2006" }} –
-                    {{ with .Params.endDate }}{{ time.Format "Jan 2006" . }}{{ else }}Present{{ end }}
-                    {{ else if eq .Section "projects" }}
-                    {{ .Date.Format "2006" }}
-                    {{ with .Params.status }} · {{ . }}{{ end }}
-                    {{ else if eq .Section "talks" }}
-                    {{ with .Params.event }}{{ . }}{{ end }}
-                    {{ with .Params.venue }} · {{ . }}{{ end }}
-                    · {{ .Date.Format "Jan 2, 2006" }}
-                    {{ else }}
-                    {{ .Date.Format "Jan 2, 2006" }}
+        <article class="pf-window">
+            {{ partial "portfolio/titlebar" . }}
+            <div class="pf-window__body pf-window__body--padded">
+                <header class="pf-head">
+                    <p class="pf-eyebrow">{{ .Section | humanize }}</p>
+                    <h1 class="pf-title">{{ .Title }}</h1>
+                    <p class="pf-single-meta">
+                        {{ if eq .Section "experience" }}
+                        {{ with .Params.company }}
+                        {{ $company := . }}
+                        <span>{{ with $.Params.website }}<a href="{{ . }}">{{ $company }}</a>{{ else }}{{ $company }}{{ end }}</span>
+                        {{ end }}
+                        {{ with .Params.location }}<span>{{ . }}</span>{{ end }}
+                        <span>{{ .Date.Format "Jan 2006" }} – {{ with .Params.endDate }}{{ time.Format "Jan 2006" . }}{{ else }}Present{{ end }}</span>
+                        {{ else if eq .Section "projects" }}
+                        <span>{{ .Date.Format "2006" }}</span>
+                        {{ with .Params.status }}<span>{{ . }}</span>{{ end }}
+                        {{ else if eq .Section "talks" }}
+                        {{ with .Params.event }}<span>{{ . }}</span>{{ end }}
+                        {{ with .Params.venue }}<span>{{ . }}</span>{{ end }}
+                        <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+                        {{ else }}
+                        <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+                        {{ end }}
+                    </p>
+                    <div class="pf-actions">
+                        {{ with .Params.website }}<a class="pf-button" href="{{ . }}">Website</a>{{ end }}
+                        {{ with .Params.repo }}<a class="pf-button" href="{{ . }}">Code</a>{{ end }}
+                        {{ with .Params.demo }}<a class="pf-button" href="{{ . }}">Live</a>{{ end }}
+                        {{ with .Params.slides }}<a class="pf-button" href="{{ . }}">Slides</a>{{ end }}
+                        {{ with .Params.video }}<a class="pf-button" href="{{ . }}">Video</a>{{ end }}
+                    </div>
+                    {{ with .Params.tech }}
+                    <ul class="pf-chips" aria-label="Technologies">
+                        {{ range . }}<li class="pf-chip">{{ . }}</li>{{ end }}
+                    </ul>
                     {{ end }}
-                </p>
-                <div class="pf-links">
-                    {{ with .Params.website }}<a class="pf-link" href="{{ . }}">Website</a>{{ end }}
-                    {{ with .Params.repo }}<a class="pf-link" href="{{ . }}">Code</a>{{ end }}
-                    {{ with .Params.demo }}<a class="pf-link" href="{{ . }}">Live</a>{{ end }}
-                    {{ with .Params.slides }}<a class="pf-link" href="{{ . }}">Slides</a>{{ end }}
-                    {{ with .Params.video }}<a class="pf-link" href="{{ . }}">Video</a>{{ end }}
+                </header>
+
+                <div class="md pf-content">
+                    {{ .Content }}
                 </div>
-                {{ with .Params.tech }}
-                <ul class="pf-chips" aria-label="Technologies">
-                    {{ range . }}<li class="pf-chip">{{ . }}</li>{{ end }}
-                </ul>
-                {{ end }}
-            </header>
 
-            <div class="md pf-content">
-                {{ .Content }}
+                <p class="pf-back">
+                    <a class="pf-button" href="{{ .CurrentSection.RelPermalink }}">← Back to {{ .CurrentSection.Title }}</a>
+                </p>
             </div>
-
-            <p class="pf-back">
-                <a href="{{ .CurrentSection.RelPermalink }}">← Back to {{ .CurrentSection.Title }}</a>
-            </p>
         </article>
     </section>
 </main>

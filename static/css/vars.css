@@ -70,3 +70,55 @@ Probability of breaking layout: 10%
         --scale: 1.1;
     }
 }
+
+/* PORTFOLIO WINDOW TOKENS
+ * Defaults for the experience/projects/talks layouts. Skins override these
+ * to match their own window chrome (see breeze.css and catppuccin.css).
+ */
+
+:root {
+    --pf-window-bg: var(--item-bg);
+    --pf-window-border: color-mix(in srgb, var(--color-secondary) 40%, transparent);
+    --pf-window-radius: var(--border-radius);
+    --pf-window-shadow: var(--shadow-shape) var(--color-shadow);
+    --pf-window-shadow-hover: var(--shadow-shape) var(--color-shadow);
+    --pf-titlebar-bg: color-mix(in srgb, var(--color-secondary) 16%, var(--item-bg));
+    --pf-titlebar-text: var(--color-secondary);
+    --pf-titlebar-height: 2rem;
+    --pf-titlebar-padding: 56px;
+    --pf-controls-image: none;
+    --pf-controls-mask: none;
+    --pf-controls-bg: transparent;
+    --pf-controls-hover-bg: transparent;
+    --pf-controls-hover-filter: none;
+    --pf-controls-width: 0px;
+    --pf-controls-height: 0px;
+    --pf-controls-top: 8px;
+    --pf-controls-right: 10px;
+    --pf-toolbar-bg: color-mix(in srgb, var(--color-secondary) 8%, var(--item-bg));
+    --pf-row-alt-bg: color-mix(in srgb, var(--color-primary) 4%, transparent);
+    --pf-row-hover-bg: color-mix(in srgb, var(--accent) 8%, transparent);
+    --pf-tile-bg: var(--item-bg);
+    --pf-border: color-mix(in srgb, var(--color-secondary) 40%, transparent);
+    --pf-border-soft: color-mix(in srgb, var(--color-secondary) 22%, transparent);
+    --pf-text: var(--color-primary);
+    --pf-text-muted: var(--color-secondary);
+    --pf-link: var(--accent);
+    --pf-accent: var(--accent);
+    --pf-radius: var(--border-radius);
+    --pf-space-1: 2px;
+    --pf-space-2: 4px;
+    --pf-space-3: 6px;
+    --pf-space-4: 8px;
+    --pf-button-bg: var(--item-bg);
+    --pf-button-border: color-mix(in srgb, var(--color-secondary) 60%, transparent);
+    --pf-button-text: var(--color-primary);
+    --pf-button-shadow: 0 1px 0 var(--color-shadow);
+    --pf-button-pressed: color-mix(in srgb, var(--accent) 20%, transparent);
+    --pf-tag-bg: transparent;
+    --pf-tag-border: color-mix(in srgb, var(--accent) 45%, transparent);
+    --pf-tag-text: var(--accent);
+    --pf-focus-ring: var(--accent);
+    --pf-transition: 140ms ease;
+    --pf-positive: #27ae60;
+}

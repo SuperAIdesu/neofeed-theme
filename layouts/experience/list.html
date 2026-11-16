@@ -1,53 +1,65 @@
 {{ define "main" }}
 <main aria-role="main">
     <section class="portfolio">
-        <header class="pf-head">
-            <h1 class="pf-title">{{ .Title }}</h1>
-            {{ with .Content }}<div class="md pf-intro">{{ . }}</div>{{ end }}
-        </header>
+        <article class="pf-window">
+            {{ partial "portfolio/titlebar" . }}
+            <div class="pf-window__body">
+                <header class="pf-head pf-pad">
+                    <h1 class="pf-title">{{ .Title }}</h1>
+                    {{ with .Content }}<div class="md pf-intro">{{ . }}</div>{{ end }}
+                </header>
 
-        <ol class="pf-list pf-timeline">
-            {{ range .Pages }}
-            {{ $page := . }}
-            <li class="pf-entry">
-                <div class="pf-entry__when">
-                    <time datetime="{{ .Date.Format "2006-01" }}">{{ .Date.Format "Jan 2006" }}</time>
-                    –
-                    {{ with .Params.endDate }}
-                    <time datetime="{{ time.Format "2006-01" . }}">{{ time.Format "Jan 2006" . }}</time>
+                <ol class="pf-list">
+                    {{ range .Pages }}
+                    {{ $page := . }}
+                    <li class="pf-row">
+                        <div class="pf-row__when">
+                            <time datetime="{{ .Date.Format "2006-01" }}">{{ .Date.Format "Jan 2006" }}</time>
+                            –
+                            {{ with .Params.endDate }}
+                            <time datetime="{{ time.Format "2006-01" . }}">{{ time.Format "Jan 2006" . }}</time>
+                            {{ else }}
+                            <span>Present</span>
+                            {{ end }}
+                        </div>
+                        <div class="pf-row__main">
+                            <h2 class="pf-row__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+                            <p class="pf-row__meta">
+                                {{ with .Params.company }}
+                                {{ $company := . }}
+                                <span>{{ with $page.Params.website }}<a href="{{ . }}">{{ $company }}</a>{{ else }}{{ $company }}{{ end }}</span>
+                                {{ end }}
+                                {{ with .Params.location }}<span>{{ . }}</span>{{ end }}
+                                {{ with .Params.employment }}<span>{{ . }}</span>{{ end }}
+                            </p>
+                            {{ with .Params.summary }}
+                            <p class="pf-row__summary">{{ . }}</p>
+                            {{ else }}
+                            {{ with .Summary }}<div class="md pf-row__summary">{{ . }}</div>{{ end }}
+                            {{ end }}
+                            {{ with .Params.tech }}
+                            <ul class="pf-chips" aria-label="Technologies">
+                                {{ range . }}<li class="pf-chip">{{ . }}</li>{{ end }}
+                            </ul>
+                            {{ end }}
+                            {{ if .Content }}
+                            <div class="pf-actions"><a class="pf-button" href="{{ $page.RelPermalink }}">Details</a></div>
+                            {{ end }}
+                        </div>
+                    </li>
                     {{ else }}
-                    <span>Present</span>
+                    <li class="pf-empty">Nothing here yet.</li>
                     {{ end }}
+                </ol>
+
+                {{ if .Pages }}
+                <div class="pf-statusbar">
+                    <span>{{ len .Pages }} {{ if eq (len .Pages) 1 }}role{{ else }}roles{{ end }}</span>
+                    <span>Newest first</span>
                 </div>
-                <div class="pf-entry__body">
-                    <h2 class="pf-entry__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-                    <p class="pf-entry__meta">
-                        {{ with .Params.company }}
-                        {{ $company := . }}
-                        {{ with $page.Params.website }}<a href="{{ . }}">{{ $company }}</a>{{ else }}{{ $company }}{{ end }}
-                        {{ end }}
-                        {{ with .Params.location }} · {{ . }}{{ end }}
-                        {{ with .Params.employment }} · {{ . }}{{ end }}
-                    </p>
-                    {{ with .Params.summary }}
-                    <p class="pf-entry__summary">{{ . }}</p>
-                    {{ else }}
-                    {{ with .Summary }}<div class="md pf-entry__summary">{{ . }}</div>{{ end }}
-                    {{ end }}
-                    {{ with .Params.tech }}
-                    <ul class="pf-chips" aria-label="Technologies">
-                        {{ range . }}<li class="pf-chip">{{ . }}</li>{{ end }}
-                    </ul>
-                    {{ end }}
-                    {{ with .Content }}
-                    <div class="pf-entry__links"><a class="pf-link" href="{{ $page.RelPermalink }}">Details</a></div>
-                    {{ end }}
-                </div>
-            </li>
-            {{ else }}
-            <li class="pf-empty">Nothing here yet.</li>
-            {{ end }}
-        </ol>
+                {{ end }}
+            </div>
+        </article>
     </section>
 </main>
 {{ end }}
