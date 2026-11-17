@@ -1126,7 +1126,7 @@ a.reaction {
     #site__name {
         padding: 0 var(--breeze-space-1);
         overflow: hidden;
-        font-size: 14px;
+        font-size: 13px;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
@@ -1141,7 +1141,7 @@ a.reaction {
 
     .header .menu__item {
         min-height: 28px;
-        padding: var(--breeze-space-2) 6px;
+        padding: var(--breeze-space-2) 3px;
         font-size: 10px;
     }
 
@@ -1150,13 +1150,13 @@ a.reaction {
     }
 
     .header .menu__item svg {
-        width: 16px;
-        height: 16px;
+        width: 14px;
+        height: 14px;
     }
 
     .header .menu__item[aria-current="page"]::after {
-        right: 6px;
-        left: 6px;
+        right: 4px;
+        left: 4px;
     }
 
     #author {

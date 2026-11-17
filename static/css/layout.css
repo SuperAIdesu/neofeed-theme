@@ -102,6 +102,13 @@ img {
     }
 }
 
+/* Keep every section icon reachable on the narrowest phones. */
+@media (max-width: 340px) {
+    #site__name .site__section {
+        display: none;
+    }
+}
+
 @media (max-width: 414px) {
     .header {
         gap: 0.25rem;
@@ -130,6 +137,11 @@ img {
     padding: 0 1rem;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+#site__name .site__section {
+    font-weight: 500;
+    opacity: .78;
 }
 
 #site__name img {

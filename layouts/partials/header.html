@@ -1,4 +1,10 @@
 <!-- site header bar: Plasma panel with a task-manager section menu -->
+{{- $sectionTitle := "" -}}
+{{- with .CurrentSection -}}
+    {{- if and (eq .Kind "section") (not (in site.MainSections .Section)) -}}
+        {{- $sectionTitle = .Title -}}
+    {{- end -}}
+{{- end -}}
 <header>
     <section>
         <div class="header">
@@ -30,7 +36,10 @@
                 </nav>
             </div>
             <div class="header__brand">
-                <a id="site__name" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a>
+                <a id="site__name" href="{{ site.Home.RelPermalink }}">
+                    <span class="site__title">{{ site.Title }}</span>
+                    {{ with $sectionTitle }}<span class="site__section"> · {{ . }}</span>{{ end }}
+                </a>
             </div>
             <div class="header__end">
                 <nav aria-label="Feeds" class="header__nav header__nav--feeds">
