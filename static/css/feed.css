@@ -37,7 +37,11 @@ li.feed__li {
     z-index: 2;
 }
 
-div.feed__content {
+/* Generic KDE window surface.
+ * Feed entries use .feed__content; site-owned sections can reuse the same
+ * chrome with .window and a data-window-title attribute. */
+div.feed__content,
+.window {
     overflow: hidden;
     word-wrap: break-word;
     background-color: var(--item-bg);
@@ -46,6 +50,7 @@ div.feed__content {
     margin: var(--content-margin);
     border-radius: var(--border-radius);
     border: 2px solid var(--accent);
+    box-sizing: border-box;
 }
 
 #open {

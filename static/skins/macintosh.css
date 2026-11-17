@@ -174,3 +174,25 @@ div#author>img#author-img {
 hr {
     width: 90%;
 }
+
+/* Task-manager header compatibility for the shared panel markup. */
+
+.header .header__start,
+.header .header__brand,
+.header .header__end {
+    width: auto;
+    margin: 0;
+}
+
+.header .header__start {
+    margin-left: 1rem;
+}
+
+.header .menu__item {
+    width: auto;
+}
+
+#site__name {
+    width: auto;
+    padding-left: 0;
+}

@@ -20,6 +20,8 @@
 - [IndieWeb Features](#indieweb-features)
   - [Different Post Types](#different-post-types)
 - [Learn and Customize with Hugo](#learn-and-customize-with-hugo)
+  - [Site Navigation](#site-navigation)
+  - [Window Component](#window-component)
   - [Edit or Create a CSS Skin](#edit-or-create-a-css-skin)
   - [Totally Optional Cool Stuff](#totally-optional-cool-stuff)
     - [Plausible](#plausible)
@@ -159,6 +161,49 @@ If you wish to edit the theme, create a CSS skin, or preview your timeline local
 You can install the latest version by running `make gethugo`.
 
 To see available Hugo commands, type `hugo --help`. [Hugo's searchable documentation](https://gohugo.io/documentation/) is also excellent. I recommend familiarizing yourself with Hugo's concepts using the [Quickstart](https://gohugo.io/getting-started/quick-start/).
+
+### Site Navigation
+
+The header renders `site.Menus.main` as a Plasma-style task manager: icon and label entries on the left, the site title centered, and the home output formats on the right. Entries are sorted by weight and may name a Breeze icon with `params.icon`:
+
+```toml
+[[menus.main]]
+name = "Projects"
+pageRef = "/projects"
+weight = 20
+  [menus.main.params]
+  icon = "folder"
+```
+
+Available icons are `home`, `calendar`, `folder`, `presentation`, `rss`, `back`, and `external`. Add more in `layouts/partials/icon.html`. The current entry gets `aria-current="page"` and an accent bar in the Breeze and Catppuccin skins.
+
+Use `mainSections` to keep additional content sections out of the home timeline and home feeds:
+
+```toml
+[params]
+mainSections = ["posts"]
+```
+
+### Window Component
+
+Any site-owned layout can render an entry as a KDE application window with the generic `.window` class and a `data-window-title` attribute:
+
+```html
+<div class="window" data-window-title="Projects">
+  ...
+</div>
+```
+
+The class reuses the same chrome as feed entries: titlebar, window controls, hover state, and the active skin's palette. The titlebar text comes from `data-window-title`. The component is class-based, so the container may be a `div`, `article`, or any other element.
+
+Site-specific stylesheets load after the skin, so they can override theme styles:
+
+```toml
+[params]
+customCSS = "css/sections.css"
+```
+
+The theme intentionally does not define individual content sections. Portfolio or other custom sections belong in the site repository.
 
 ### Edit or Create a CSS Skin
 

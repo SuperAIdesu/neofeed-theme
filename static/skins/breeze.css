@@ -261,9 +261,15 @@ header > section {
     backdrop-filter: blur(18px) saturate(1.25);
 }
 
-.header__item {
-    gap: var(--breeze-space-2);
+.header__start,
+.header__end,
+.header__brand {
+    min-width: 0;
     color: var(--breeze-panel-text);
+}
+
+.header__start {
+    gap: var(--breeze-space-2);
 }
 
 #logo {
@@ -331,31 +337,62 @@ header > section {
     color: var(--breeze-panel-text);
 }
 
+/* Plasma task manager button: icon and label, with an accent bar for the
+ * active task. */
 .header .menu__item {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 6px;
     min-height: 30px;
-    padding: var(--breeze-space-2) 10px;
+    padding: var(--breeze-space-2) 9px;
     border: 1px solid transparent;
     border-radius: var(--breeze-radius);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
-    letter-spacing: .06em;
+    letter-spacing: .015em;
     line-height: 1;
-    text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .header .menu__item svg {
-    width: 18px;
-    height: 18px;
+    width: 17px;
+    height: 17px;
+    flex: none;
 }
 
 .header .menu__item:hover,
 .header .menu__item:focus-visible {
     background: var(--breeze-panel-hover);
-    border-color: var(--breeze-accent);
+    border-color: var(--breeze-panel-border);
     color: var(--breeze-panel-text);
+}
+
+.header .menu__item[aria-current="page"] {
+    background: var(--breeze-panel-hover);
+    border-color: var(--breeze-accent);
+}
+
+.header .menu__item[aria-current="page"]::after {
+    content: "";
+    position: absolute;
+    right: 9px;
+    bottom: 2px;
+    left: 9px;
+    height: 2px;
+    background: var(--breeze-accent);
+    border-radius: 1px;
+}
+
+.header .menu__item--feed {
+    min-width: 32px;
+    padding: var(--breeze-space-2) 7px;
+    opacity: .8;
+}
+
+.header .menu__item--feed:hover {
+    opacity: 1;
 }
 
 /* --------------------------------------------------------------------------
@@ -474,7 +511,8 @@ li.feed__li {
     margin: 0 0 1.25rem;
 }
 
-div.feed__content {
+div.feed__content,
+.window {
     position: relative;
     margin: 0;
     padding: calc(var(--breeze-titlebar-height) + var(--content-padding)) var(--content-padding) var(--content-padding);
@@ -486,15 +524,16 @@ div.feed__content {
     transition: border-color var(--breeze-transition), box-shadow var(--breeze-transition);
 }
 
-div.feed__content:hover {
+div.feed__content:hover,
+.window:hover {
     border-color: var(--breeze-accent);
     box-shadow: var(--breeze-window-shadow-hover);
 }
 
 /* Window titlebar */
 div.feed__content::before,
-.item-content::before {
-    content: "Neofeed";
+.item-content::before,
+.window::before {
     position: absolute;
     inset: 0 0 auto;
     display: flex;
@@ -512,9 +551,19 @@ div.feed__content::before,
     line-height: 1;
 }
 
+div.feed__content::before,
+.item-content::before {
+    content: "Neofeed";
+}
+
+.window::before {
+    content: attr(data-window-title);
+}
+
 /* Window controls */
 div.feed__content::after,
-.item-content::after {
+.item-content::after,
+.window::after {
     content: "";
     position: absolute;
     top: 8px;
@@ -537,7 +586,9 @@ div.feed__content::after,
 
 div.feed__content:hover::after,
 div.feed__content:focus-within::after,
-.item-content:hover::after {
+.item-content:hover::after,
+.window:hover::after,
+.window:focus-within::after {
     background-color: var(--breeze-accent);
     opacity: 1;
 }
@@ -1057,14 +1108,18 @@ a.reaction {
     }
 
     .header {
-        flex-direction: row !important;
         min-height: 40px;
         padding: var(--breeze-space-1) 7px !important;
         gap: var(--breeze-space-1);
     }
 
-    .header__item {
+    .header__start,
+    .header__end,
+    .header__brand {
         min-width: 0;
+    }
+
+    .header__start {
         gap: var(--breeze-space-1);
     }
 
@@ -1090,9 +1145,18 @@ a.reaction {
         font-size: 10px;
     }
 
+    .header .menu__item--feed {
+        padding: var(--breeze-space-2) 5px;
+    }
+
     .header .menu__item svg {
         width: 16px;
         height: 16px;
+    }
+
+    .header .menu__item[aria-current="page"]::after {
+        right: 6px;
+        left: 6px;
     }
 
     #author {
@@ -1103,18 +1167,21 @@ a.reaction {
         font-size: 11px;
     }
 
-    div.feed__content {
+    div.feed__content,
+    .window {
         padding: calc(var(--breeze-titlebar-height) + 1rem) 1rem 1rem;
     }
 
     div.feed__content::before,
-    .item-content::before {
+    .item-content::before,
+    .window::before {
         padding: 0 44px;
         font-size: 11px;
     }
 
     div.feed__content::after,
-    .item-content::after {
+    .item-content::after,
+    .window::after {
         top: 7px;
         right: 8px;
         width: 44px;
