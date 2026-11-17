@@ -1,6 +1,5 @@
 @import "vars.css";
 @import "feed.css";
-@import "portfolio.css";
 @import "md.css";
 @import "wm.css";
 @import "h-card.css";
@@ -97,58 +96,11 @@ nav ul {
     width: 100%;
     margin: 0;
     justify-content: flex-end;
-    flex-wrap: wrap;
 }
 
 nav ul li {
     list-style-type: none;
-    margin: 0 0.75rem;
-}
-
-.menu__item {
-    white-space: nowrap;
-}
-
-.menu__item[aria-current="page"] {
-    font-weight: 700;
-    text-decoration: underline;
-    text-underline-offset: 0.25rem;
-}
-
-@media (max-width: 600px) {
-    nav ul li {
-        margin: 0 0.5rem;
-    }
-
-    nav ul {
-        justify-content: center;
-    }
-
-    /* Keep the panel on one line when the menu has several items. */
-    .header {
-        flex-direction: row !important;
-        flex-wrap: wrap;
-        row-gap: 0.25rem;
-        padding: 0.4rem 0;
-    }
-
-    .header__item {
-        flex: 1 1 auto;
-        min-width: 0;
-    }
-
-    .header nav {
-        min-height: 0;
-    }
-
-    .header nav ul {
-        justify-content: flex-end;
-    }
-
-    .header .menu__item {
-        font-size: 0.7rem;
-        letter-spacing: 0.02em;
-    }
+    margin: 0 2rem;
 }
 
 main {

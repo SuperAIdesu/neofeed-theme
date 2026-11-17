@@ -20,8 +20,6 @@
 - [IndieWeb Features](#indieweb-features)
   - [Different Post Types](#different-post-types)
 - [Learn and Customize with Hugo](#learn-and-customize-with-hugo)
-  - [Site Navigation](#site-navigation)
-  - [Portfolio Sections](#portfolio-sections)
   - [Edit or Create a CSS Skin](#edit-or-create-a-css-skin)
   - [Totally Optional Cool Stuff](#totally-optional-cool-stuff)
     - [Plausible](#plausible)
@@ -161,65 +159,6 @@ If you wish to edit the theme, create a CSS skin, or preview your timeline local
 You can install the latest version by running `make gethugo`.
 
 To see available Hugo commands, type `hugo --help`. [Hugo's searchable documentation](https://gohugo.io/documentation/) is also excellent. I recommend familiarizing yourself with Hugo's concepts using the [Quickstart](https://gohugo.io/getting-started/quick-start/).
-
-### Site Navigation
-
-The header renders entries from `site.Menus.main`, sorted by weight, between the
-home icon and the feed output links:
-
-```toml
-[[menus.main]]
-name = "Projects"
-pageRef = "/projects"
-weight = 20
-```
-
-The home feed is limited to `mainSections`, so portfolio sections do not appear
-in the timeline:
-
-```toml
-[params]
-mainSections = ["posts"]
-```
-
-### Portfolio Sections
-
-Sections named `experience`, `projects`, and `talks` have dedicated list and
-single layouts. Their front matter is free-form; the templates read these keys:
-
-| Section | List layout | Front matter |
-| --- | --- | --- |
-| `experience` | Reverse-chronological timeline | `company`, `location`, `employment`, `website`, `endDate`, `tech`, `summary` |
-| `projects` | Card grid | `summary`, `status`, `tech`, `repo`, `demo` |
-| `talks` | Event list | `event`, `venue`, `summary`, `slides`, `video` |
-
-For `experience`, `date` is the start date and `endDate` is optional (omit it for
-the current role). Add entries with `hugo new experience/my-role.md`,
-`hugo new projects/my-project.md`, or `hugo new talks/my-talk.md`.
-
-Styles for these sections live in `static/css/portfolio.css` and use the theme's
-skin variables, so they follow the active light/dark skin.
-
-Each section page renders as a desktop application window: a titlebar with
-decorative window controls, an optional back affordance on detail pages, and
-either a list view (`experience`, `talks`) or a grid view (`projects`). Rows
-alternate background colors so metadata stays visually tied to its entry, and
-the status bar is omitted on narrow screens, following the KDE HIG.
-
-The window chrome is driven by `--pf-*` tokens. `static/css/vars.css` sets
-neutral defaults for every skin; `breeze.css` and `catppuccin.css` map the tokens
-onto their own window palette. A new skin only needs to override the tokens it
-cares about:
-
-| Token | Purpose |
-| --- | --- |
-| `--pf-window-bg`, `--pf-window-border`, `--pf-window-radius` | Window frame |
-| `--pf-titlebar-bg`, `--pf-titlebar-text`, `--pf-titlebar-height` | Titlebar |
-| `--pf-controls-image` / `--pf-controls-mask` | Window controls (image or mask) |
-| `--pf-tile-bg`, `--pf-border`, `--pf-border-soft` | Surfaces and dividers |
-| `--pf-text`, `--pf-text-muted`, `--pf-link`, `--pf-accent` | Typography |
-| `--pf-button-*`, `--pf-tag-*` | Buttons and chips |
-| `--pf-row-alt-bg`, `--pf-row-hover-bg` | List view row states |
 
 ### Edit or Create a CSS Skin
 

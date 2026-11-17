@@ -18,7 +18,7 @@
                 <nav aria-label="page menu" class="flex row">
                     <ul role="menubar" class="flex row">
                         <li role="none">
-                            <a class="menu__item" href="{{ .Site.BaseURL }}" aria-label="Home">
+                            <a class="menu__item" href="{{ .Site.BaseURL }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
                                     fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                                     stroke-linejoin="round">
@@ -27,12 +27,6 @@
                                 </svg>
                             </a>
                         </li>
-                        {{ range site.Menus.main }}
-                        {{ $current := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }}
-                        <li role="none">
-                            <a class="menu__item" href="{{ .URL }}"{{ if $current }} aria-current="page"{{ end }}>{{ .Name }}</a>
-                        </li>
-                        {{ end }}
                         {{ range .AlternativeOutputFormats -}}
                         <li role="none">
                             <a class="menu__item" href="{{ .Permalink }}">

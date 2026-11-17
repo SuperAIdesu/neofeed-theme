@@ -161,57 +161,6 @@
 }
 
 /* --------------------------------------------------------------------------
- * Portfolio windows
- * ------------------------------------------------------------------------ */
-
-:root {
-    --pf-window-bg: var(--breeze-view);
-    --pf-window-border: var(--breeze-border);
-    --pf-window-radius: var(--breeze-radius);
-    --pf-window-shadow: var(--breeze-window-shadow);
-    --pf-window-shadow-hover: var(--breeze-window-shadow-hover);
-    --pf-titlebar-bg: var(--breeze-titlebar);
-    --pf-titlebar-text: var(--breeze-titlebar-text);
-    --pf-titlebar-height: var(--breeze-titlebar-height);
-    --pf-titlebar-padding: 62px;
-    --pf-controls-image: none;
-    --pf-controls-mask: var(--breeze-window-controls);
-    --pf-controls-bg: var(--breeze-control);
-    --pf-controls-hover-bg: var(--breeze-accent);
-    --pf-controls-hover-filter: none;
-    --pf-controls-width: 54px;
-    --pf-controls-height: 16px;
-    --pf-controls-top: 8px;
-    --pf-controls-right: 10px;
-    --pf-toolbar-bg: var(--breeze-window-alt);
-    --pf-row-alt-bg: var(--breeze-view-alt);
-    --pf-row-hover-bg: var(--breeze-panel-hover);
-    --pf-tile-bg: var(--breeze-view-alt);
-    --pf-border: var(--breeze-border);
-    --pf-border-soft: var(--breeze-border-soft);
-    --pf-text: var(--breeze-text);
-    --pf-text-muted: var(--breeze-text-inactive);
-    --pf-link: var(--breeze-link);
-    --pf-accent: var(--breeze-accent);
-    --pf-radius: var(--breeze-radius);
-    --pf-space-1: var(--breeze-space-1);
-    --pf-space-2: var(--breeze-space-2);
-    --pf-space-3: var(--breeze-space-3);
-    --pf-space-4: var(--breeze-space-4);
-    --pf-button-bg: var(--breeze-button);
-    --pf-button-border: var(--breeze-border);
-    --pf-button-text: var(--breeze-text);
-    --pf-button-shadow: 0 1px 0 var(--breeze-button-shadow-color);
-    --pf-button-pressed: var(--breeze-button-pressed);
-    --pf-tag-bg: var(--breeze-tag-bg);
-    --pf-tag-border: var(--breeze-tag-border);
-    --pf-tag-text: var(--breeze-tag-text);
-    --pf-focus-ring: var(--breeze-focus-ring);
-    --pf-transition: var(--breeze-transition);
-    --pf-positive: var(--breeze-positive);
-}
-
-/* --------------------------------------------------------------------------
  * Desktop foundation
  * ------------------------------------------------------------------------ */
 
