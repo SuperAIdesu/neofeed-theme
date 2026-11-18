@@ -37,6 +37,16 @@ li.feed__li {
     z-index: 2;
 }
 
+/* Feed entry title: pull it toward the titlebar and separate it from the text. */
+.h-feed .feed__content .md > h2 {
+    padding-top: 0;
+    padding-bottom: 0.75rem;
+}
+
+.h-feed .feed__content .md > h2 + p {
+    padding-top: 0;
+}
+
 /* Generic KDE window surface.
  * Feed entries use .feed__content; site-owned sections can reuse the same
  * chrome with .window and a data-window-title attribute. */
@@ -51,6 +61,21 @@ div.feed__content,
     border-radius: var(--border-radius);
     border: 2px solid var(--accent);
     box-sizing: border-box;
+}
+
+/* Site info colophon at the end of the home page. */
+.window.site-info {
+    width: 100%;
+    margin: 1.25rem 0 0;
+    font-size: 14px;
+}
+
+.window.site-info > :first-child {
+    padding-top: 0;
+}
+
+.window.site-info > :last-child {
+    padding-bottom: 0 !important;
 }
 
 #open {

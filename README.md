@@ -198,6 +198,26 @@ Pronouns are optional. When `pronouns` is empty or unset, only the name is rende
 
 The bio comes from `params.author.about` (plain text) or from an `author/about.md` file at the project root when it exists. The file is rendered as Markdown and may contain multiple blocks such as paragraphs, lists, and headings.
 
+### Site Info Window
+
+The home page can end with a "Site info" window, useful for a colophon or credits. Add an `author/site-info.md` file at the project root:
+
+```markdown
+Built with [Hugo](https://gohugo.io/) and the [Neofeed](https://neofeed.dev) theme.
+```
+
+The file is rendered as Markdown without front matter and may contain multiple blocks. It appears only on the first page of the home feed; if the file is missing or empty, no window is rendered.
+
+The path and titlebar text can be overridden:
+
+```toml
+[params]
+siteInfoFile = "author/site-info.md"
+siteInfoTitle = "Site info"
+```
+
+Because the file is read directly, Hugo shortcodes and `relref` are not processed; use root-relative links such as `/projects/` instead.
+
 ### Window Component
 
 Any site-owned layout can render an entry as a KDE application window with the generic `.window` class and a `data-window-title` attribute:

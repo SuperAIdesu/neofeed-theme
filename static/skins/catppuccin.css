@@ -547,7 +547,6 @@ header > section {
     padding-bottom: 0 !important;
     margin: 0;
     color: var(--ctp-text);
-    font-size: 14px;
 }
 
 #author .p-note a {

@@ -14,5 +14,8 @@
 {{ define "footer" }}
 <footer>
     {{ partial "pagination" . }}
+    {{ if eq .Paginator.PageNumber 1 }}
+    {{ partial "site-info" . }}
+    {{ end }}
 </footer>
 {{ end }}
