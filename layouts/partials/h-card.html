@@ -4,7 +4,12 @@
         <img class="u-photo" id="author-img" alt="{{ with site.Params.author.name }}{{ . }}{{ else }}author photo{{ end }}"
             src="{{ with site.Params.author.image }}{{ . | absURL }}{{ else }}https://picsum.photos/120.webp{{ end }}">
         <div id="card" class="md">
-            <h1 class="p-name">{{ with site.Params.author.name }}{{ . }}{{ end }}</h1>
+            <div class="author-name-line">
+                <h1 class="p-name">{{ with site.Params.author.name }}{{ . }}{{ end }}</h1>
+                {{ with site.Params.author.pronouns }}
+                <span class="p-pronouns">{{ . }}</span>
+                {{ end }}
+            </div>
             <address class="properties">
                 {{ $url := urls.Parse .Permalink }}
                 <a class="u-url u-uid" href="{{ with site.Params.author.domain }}{{.}}">{{ site.Params.author.domain }}</a>
@@ -22,14 +27,14 @@
                 {{ with .Site.Params.twitteruser }} {{ $.Site.Params.separator | default "∙" }}
                 <a rel="me" href="https://twitter.com/{{ . }}">twitter</a>{{ end }}
             </address>
-            <p class="p-note">
+            <div class="p-note">
                 {{ $bio := "author/about.md" }}
                 {{ if (fileExists $bio) -}}
                 {{ readFile $bio | markdownify }}
                 {{ else }}
                 {{ site.Params.author.about }}
                 {{- end }}
-            </p>
+            </div>
         </div>
     </div>
 </div>

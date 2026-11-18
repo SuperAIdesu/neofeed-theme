@@ -184,6 +184,20 @@ Use `mainSections` to keep additional content sections out of the home timeline 
 mainSections = ["posts"]
 ```
 
+### Author Card
+
+The about card reads the author's name and optional pronouns from `[params.author]`:
+
+```toml
+[params.author]
+name = "Your Name"
+pronouns = "they/them"
+```
+
+Pronouns are optional. When `pronouns` is empty or unset, only the name is rendered. The value is printed as-is, so any readable form works (`she/her`, `he/him/his`, `they/them`). It is marked up with `p-pronouns` in the h-card and displayed in muted text beside the name.
+
+The bio comes from `params.author.about` (plain text) or from an `author/about.md` file at the project root when it exists. The file is rendered as Markdown and may contain multiple blocks such as paragraphs, lists, and headings.
+
 ### Window Component
 
 Any site-owned layout can render an entry as a KDE application window with the generic `.window` class and a `data-window-title` attribute:

@@ -11,6 +11,7 @@ img.u-photo {
     margin: 0 1rem 0 0;
     border-radius: 50%;
     border: 2px solid var(--accent);
+    flex: none;
 }
 
 div#card {
@@ -40,4 +41,26 @@ h1.p-name {
     font-size: calc(1.7rem * var(--scale));
     font-weight: 800;
     margin: 0;
+}
+
+.author-name-line {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.6rem;
+}
+
+.p-pronouns {
+    color: var(--color-secondary);
+    font-size: calc(0.9rem * var(--scale));
+    font-weight: 500;
+}
+
+/* The bio may contain multiple Markdown blocks. */
+.p-note > :first-child {
+    padding-top: 0;
+}
+
+.p-note > :last-child {
+    padding-bottom: 0 !important;
 }
