@@ -1,7 +1,10 @@
+{{- $page := . -}}
 {{- $file := site.Params.siteInfoFile | default "author/site-info.md" -}}
 {{- $title := site.Params.siteInfoTitle | default "Site info" -}}
 {{- if fileExists $file -}}
-{{- with (readFile $file | markdownify) -}}
+{{- /* Render as a block so a single paragraph keeps its <p> wrapper; markdownify
+       strips it, which breaks the .md p > a link styling. */ -}}
+{{- with (readFile $file | $page.RenderString (dict "display" "block")) -}}
 <aside class="window site-info md" data-window-title="{{ $title }}" aria-label="{{ $title }}">
     {{ . }}
 </aside>
