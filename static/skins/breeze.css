@@ -281,8 +281,19 @@ header > section {
 }
 
 #logo > a {
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    min-height: 30px;
+    border: 1px solid transparent;
+    border-radius: var(--breeze-radius);
+}
+
+#logo > a:hover,
+#logo > a:focus-visible {
+    background: var(--breeze-panel-hover);
+    border-color: var(--breeze-panel-border);
 }
 
 #logo img {
@@ -290,8 +301,9 @@ header > section {
     max-height: 20px;
 }
 
-/* Plasma application launcher: a three-by-three grid of dots. */
-#logo:not(:has(img))::before {
+/* Plasma application launcher: a three-by-three grid of dots.
+ * Draw it on the link so the glyph itself is the clickable target. */
+#logo:not(:has(img)) > a::before {
     content: "";
     display: block;
     width: 18px;
@@ -1136,6 +1148,11 @@ a.reaction {
 
     .header nav ul li {
         margin: 0;
+    }
+
+    #logo > a {
+        min-width: 28px;
+        min-height: 28px;
     }
 
     .header .menu__item {
